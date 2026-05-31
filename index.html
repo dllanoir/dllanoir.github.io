@@ -3,203 +3,318 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O Que Fica no Silêncio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Gerador de Senhas</title>
+    
+    <!-- Fonte minimalista e profissional -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     
+    <!-- Ícones (FontAwesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
+        /* Variáveis de cor para um tema escuro profissional e neutro */
         :root {
-            --bg-color: #050505;
-            --text-main: #e5e5e5;
-            --text-muted: #737373;
-            --accent: #3b3b3b;
+            --bg-color: #0f172a; /* Azul muito escuro/Ardósia */
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #10b981; /* Verde esmeralda (indicando sucesso/segurança) */
+            --accent-hover: #059669;
+            --border-color: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
-            font-family: 'Lora', serif;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
-        h1, h2, .title-font {
-            font-family: 'Cormorant Garamond', serif;
+        /* Container principal */
+        .container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
-        /* Animações de entrada */
-        .reveal-text {
+        h1 {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--text-main);
+        }
+
+        /* Área onde a senha gerada aparece */
+        .password-display {
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .password-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.25rem;
+            word-break: break-all;
+            color: var(--accent);
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.2s;
+            padding: 5px;
+        }
+
+        .copy-btn:hover {
+            color: var(--text-main);
+        }
+
+        /* Estilos dos controles de configuração */
+        .setting-group {
+            margin-bottom: 20px;
+        }
+
+        .length-slider-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        /* Customização do slider (input type="range") */
+        input[type="range"] {
+            width: 100%;
+            margin-bottom: 20px;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        /* Checkboxes customizados */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .checkbox-container input {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent);
+        }
+
+        /* Botão principal de ação */
+        .generate-btn {
+            width: 100%;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 10px;
+        }
+
+        .generate-btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* Mensagem de copiado */
+        .toast-msg {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-top: 15px;
+            min-height: 20px;
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            filter: blur(5px);
+            transition: opacity 0.3s;
         }
 
-        .reveal-text.visible {
+        .toast-msg.show {
             opacity: 1;
-            transform: translateY(0);
-            filter: blur(0px);
-        }
-
-        /* Efeito de respiração no fundo */
-        .ambient-glow {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60vw;
-            height: 60vw;
-            background: radial-gradient(circle, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0) 70%);
-            border-radius: 50%;
-            z-index: -1;
-            animation: breathe 8s infinite alternate ease-in-out;
-            pointer-events: none;
-        }
-
-        @keyframes breathe {
-            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
-            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 4px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-color);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 10px;
-        }
-
-        .grain-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            opacity: 0.03;
-            pointer-events: none;
-            z-index: 50;
         }
     </style>
 </head>
-<body class="antialiased selection:bg-gray-800 selection:text-white">
+<body>
 
-    <div class="grain-overlay"></div>
-    <div class="ambient-glow"></div>
-
-    <!-- Seção de Abertura -->
-    <header class="min-h-screen flex flex-col items-center justify-center relative px-6 text-center">
-        <p class="reveal-text text-sm text-gray-500 tracking-[0.3em] uppercase mb-8">Uma Carta Aberta</p>
-        <h1 class="reveal-text title-font text-5xl md:text-7xl lg:text-8xl font-light tracking-wide leading-tight text-gray-200">
-            O Que Fica<br>
-            <span class="italic text-gray-500">no Silêncio</span>
-        </h1>
-        <div class="reveal-text mt-24 animate-bounce">
-            <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
-        </div>
-    </header>
-
-    <!-- Corpo da Carta -->
-    <main class="max-w-2xl mx-auto px-6 py-24 md:py-32 space-y-32 text-lg md:text-xl leading-relaxed text-gray-300">
+    <div class="container">
+        <h1>Gerador de Senhas</h1>
         
-        <section class="reveal-text">
-            <p>
-                Sempre me veem resolvendo as coisas. O meu lado de fora é um relógio que não atrasa, uma engrenagem que não para. Eu me acostumei a ser o porto seguro, a mente lógica, a pessoa que encontra as saídas quando o labirinto parece escuro demais para os outros.
-            </p>
-        </section>
-
-        <section class="reveal-text">
-            <p>
-                Mas eu escrevo isso para tirar a máscara, mesmo que só por alguns minutos. Porque a verdade é que, aqui dentro, a mente pesa. O fluxo constante de pensamentos, projetos e responsabilidades às vezes soa como um ruído ensurdecedor que eu não sei como desligar.
-            </p>
-        </section>
-
-        <section class="reveal-text border-l-4 border-gray-800 pl-6 my-12 italic text-gray-400">
-            <p>
-                Eu sinto tudo de forma absurdamente profunda. E, talvez por sentir tanto, eu tenha aprendido a demonstrar tão pouco.
-            </p>
-        </section>
-
-        <section class="reveal-text">
-            <p>
-                Há dias em que o meu maior desejo não é conquistar o mundo, bater uma meta ou criar algo brilhante. Meu maior desejo é apenas o direito de ser vulnerável. O direito de não saber o que fazer. O direito de deitar no chão da sala, olhar para o teto e deixar que as lágrimas que eu engoli durante a semana inteira finalmente encontrem o caminho de casa.
-            </p>
-        </section>
-
-        <section class="reveal-text">
-            <p>
-                Eu tenho medos que não conto a ninguém. Medo de não ser suficiente, medo de estar correndo na direção errada, medo de que, se eu parar por um segundo, tudo desmorone. Eu carrego uma solidão estranha — não a de não ter pessoas por perto, mas a de nem sempre ser compreendido na minha essência mais crua.
-            </p>
-        </section>
-
-        <section class="reveal-text">
-            <p>
-                Mas, curiosamente, é exatamente nesse abismo íntimo que mora a minha maior força.
-            </p>
-            <p class="mt-6">
-                Porque é dessa sensibilidade escondida que nasce a minha empatia. É porque eu sinto as rachaduras da vida que eu consigo construir coisas tão sólidas. Eu amo com uma intensidade calada, mas inabalável. Eu aprecio as pequenas belezas — um céu de fim de tarde, um vento frio no rosto, o cheiro de café novo — como âncoras que me prendem ao momento presente.
-            </p>
-        </section>
-
-        <section class="reveal-text">
-            <p>
-                Se você está lendo isso, saiba que esta é a minha versão sem filtros. Sem a armadura.
-            </p>
-            <p class="mt-6">
-                Eu sou feito de cicatrizes invisíveis, de sonhos imensos e de uma vontade infinita de encontrar paz no meio do caos. Eu sou imperfeito, cansado às vezes, mas profundamente humano. E, pela primeira vez em muito tempo, eu acho que... <span class="italic text-gray-100">está tudo bem ser assim.</span>
-            </p>
-        </section>
-
-    </main>
-
-    <!-- Encerramento -->
-    <footer class="min-h-screen flex flex-col items-center justify-center relative px-6 text-center border-t border-gray-900 mt-24">
-        <div class="reveal-text space-y-6">
-            <p class="title-font text-2xl md:text-3xl text-gray-400 italic">"Respire."</p>
-            <div class="w-px h-24 bg-gradient-to-b from-gray-600 to-transparent mx-auto mt-8"></div>
+        <div class="password-display">
+            <span class="password-text" id="password-result">SenhaAqui</span>
+            <button class="copy-btn" id="copy-btn" title="Copiar senha">
+                <i class="fa-regular fa-copy"></i>
+            </button>
         </div>
-    </footer>
+
+        <div class="setting-group">
+            <div class="length-slider-container">
+                <label for="pwd-length">Tamanho da senha</label>
+                <span id="length-value">16</span>
+            </div>
+            <input type="range" id="pwd-length" min="6" max="32" value="16">
+        </div>
+
+        <div class="setting-group">
+            <label class="checkbox-container">
+                Letras Maiúsculas (A-Z)
+                <input type="checkbox" id="inc-uppercase" checked>
+            </label>
+            <label class="checkbox-container">
+                Letras Minúsculas (a-z)
+                <input type="checkbox" id="inc-lowercase" checked>
+            </label>
+            <label class="checkbox-container">
+                Números (0-9)
+                <input type="checkbox" id="inc-numbers" checked>
+            </label>
+            <label class="checkbox-container">
+                Símbolos (!@#$%)
+                <input type="checkbox" id="inc-symbols" checked>
+            </label>
+        </div>
+
+        <button class="generate-btn" id="generate-btn">Gerar Senha</button>
+        
+        <div class="toast-msg" id="toast">Senha copiada com sucesso!</div>
+    </div>
 
     <script>
-        // Lógica para revelar os textos conforme o scroll (Fade in / Blur out)
-        document.addEventListener("DOMContentLoaded", () => {
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px 0px -15% 0px', // Aciona um pouco antes de chegar ao centro
-                threshold: 0.1
-            };
+        // Seleção dos elementos do DOM
+        const resultEl = document.getElementById('password-result');
+        const lengthEl = document.getElementById('pwd-length');
+        const lengthValEl = document.getElementById('length-value');
+        const uppercaseEl = document.getElementById('inc-uppercase');
+        const lowercaseEl = document.getElementById('inc-lowercase');
+        const numbersEl = document.getElementById('inc-numbers');
+        const symbolsEl = document.getElementById('inc-symbols');
+        const generateBtn = document.getElementById('generate-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const toastEl = document.getElementById('toast');
 
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        // Opcional: Descomente a linha abaixo se quiser que a animação ocorra apenas uma vez
-                        // observer.unobserve(entry.target); 
-                    } else {
-                        // Remove a classe se sair da tela para refazer a animação ao voltar
-                        entry.target.classList.remove('visible');
-                    }
-                });
-            }, observerOptions);
+        // Conjuntos de caracteres disponíveis
+        const randomFunc = {
+            lower: getRandomLower,
+            upper: getRandomUpper,
+            number: getRandomNumber,
+            symbol: getRandomSymbol
+        };
 
-            const textElements = document.querySelectorAll('.reveal-text');
-            textElements.forEach(el => observer.observe(el));
+        // Funções para gerar caracteres aleatórios usando a tabela ASCII
+        function getRandomLower() {
+            return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+        }
 
-            // Aciona imediatamente os elementos que já estão na tela ao carregar
-            setTimeout(() => {
-                textElements.forEach(el => {
-                    const rect = el.getBoundingClientRect();
-                    if(rect.top < window.innerHeight) {
-                        el.classList.add('visible');
-                    }
-                });
-            }, 100);
+        function getRandomUpper() {
+            return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+        }
+
+        function getRandomNumber() {
+            return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
+        }
+
+        function getRandomSymbol() {
+            const symbols = '!@#$%^&*(){}[]=<>/,.';
+            return symbols[Math.floor(Math.random() * symbols.length)];
+        }
+
+        // Atualiza o valor do tamanho da senha quando o slider é movido
+        lengthEl.addEventListener('input', (e) => {
+            lengthValEl.innerText = e.target.value;
         });
+
+        // Evento de clique no botão de gerar
+        generateBtn.addEventListener('click', () => {
+            const length = +lengthEl.value; // Converte para número
+            const hasLower = lowercaseEl.checked;
+            const hasUpper = uppercaseEl.checked;
+            const hasNumber = numbersEl.checked;
+            const hasSymbol = symbolsEl.checked;
+
+            resultEl.innerText = generatePassword(hasLower, hasUpper, hasNumber, hasSymbol, length);
+        });
+
+        // Função principal que constrói a senha
+        function generatePassword(lower, upper, number, symbol, length) {
+            let generatedPassword = '';
+            const typesCount = lower + upper + number + symbol;
+            
+            // Array com os tipos de caracteres selecionados
+            const typesArr = [{lower}, {upper}, {number}, {symbol}].filter(item => Object.values(item)[0]);
+            
+            // Se nenhum checkbox estiver marcado, retorna vazio
+            if (typesCount === 0) {
+                return '';
+            }
+
+            // Loop para gerar os caracteres
+            for (let i = 0; i < length; i += typesCount) {
+                typesArr.forEach(type => {
+                    const funcName = Object.keys(type)[0];
+                    generatedPassword += randomFunc[funcName]();
+                });
+            }
+
+            // Embaralha e corta a senha para o tamanho exato solicitado
+            const finalPassword = generatedPassword.slice(0, length);
+            
+            return finalPassword;
+        }
+
+        // Função para copiar a senha gerada
+        copyBtn.addEventListener('click', () => {
+            const textarea = document.createElement('textarea');
+            const password = resultEl.innerText;
+
+            if (!password || password === 'SenhaAqui' || password === '') {
+                return;
+            }
+
+            textarea.value = password;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            textarea.remove();
+
+            // Mostra a mensagem de sucesso (Toast)
+            toastEl.classList.add('show');
+            setTimeout(() => {
+                toastEl.classList.remove('show');
+            }, 2500);
+        });
+
+        // Gera uma senha inicial ao carregar a página
+        generateBtn.click();
     </script>
 </body>
 </html>
