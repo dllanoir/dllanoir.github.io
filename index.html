@@ -3,318 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Senhas</title>
-    
-    <!-- Fonte minimalista e profissional -->
+    <title>Para Alguém Especial</title>
+    <!-- Google Fonts para uma tipografia elegante e minimalista -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     
-    <!-- Ícones (FontAwesome) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
-        /* Variáveis de cor para um tema escuro profissional e neutro */
-        :root {
-            --bg-color: #0f172a; /* Azul muito escuro/Ardósia */
-            --card-bg: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent: #10b981; /* Verde esmeralda (indicando sucesso/segurança) */
-            --accent-hover: #059669;
-            --border-color: #334155;
-        }
-
+        /* Reset e Variáveis de Estilo */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-color: #fbf9f6; /* Off-white caloroso e minimalista */
+            --text-color: #2c2c2c; /* Cinza escuro suave para leitura confortável */
+            --accent-color: #bfa391; /* Tom pastel suave que lembra a delicadeza dos detalhes */
+            --light-text: #757575;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-main);
-            min-height: 100vh;
+            color: var(--text-color);
+            font-family: 'Lora', serif;
+            line-height: 1.8;
+            letter-spacing: 0.02em;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            min-height: 100vh;
+            padding: 40px 20px;
+            overflow-x: hidden;
         }
 
-        /* Container principal */
+        /* Container Principal com Animação de Entrada */
         .container {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 30px;
+            max-width: 650px;
             width: 100%;
-            max-width: 450px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInReveal 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        /* Cabeçalho Histórico/Minimalista */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .flower-icon {
+            font-weight: 200;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            letter-spacing: 5px;
         }
 
         h1 {
-            font-size: 1.5rem;
-            text-align: center;
-            margin-bottom: 25px;
-            color: var(--text-main);
+            font-weight: 400;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--text-color);
         }
 
-        /* Área onde a senha gerada aparece */
-        .password-display {
-            background-color: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-
-        .password-text {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.25rem;
-            word-break: break-all;
-            color: var(--accent);
-        }
-
-        .copy-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: color 0.2s;
-            padding: 5px;
-        }
-
-        .copy-btn:hover {
-            color: var(--text-main);
-        }
-
-        /* Estilos dos controles de configuração */
-        .setting-group {
-            margin-bottom: 20px;
-        }
-
-        .length-slider-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        /* Customização do slider (input type="range") */
-        input[type="range"] {
-            width: 100%;
-            margin-bottom: 20px;
-            accent-color: var(--accent);
-            cursor: pointer;
-        }
-
-        /* Checkboxes customizados */
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .checkbox-container input {
-            cursor: pointer;
-            width: 18px;
-            height: 18px;
-            accent-color: var(--accent);
-        }
-
-        /* Botão principal de ação */
-        .generate-btn {
-            width: 100%;
-            background-color: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 16px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s;
+        .date {
+            font-size: 0.8rem;
+            color: var(--light-text);
+            letter-spacing: 2px;
             margin-top: 10px;
+            text-transform: uppercase;
         }
 
-        .generate-btn:hover {
-            background-color: var(--accent-hover);
+        /* Estilização do Texto Poético */
+        .story-content p {
+            font-size: 1.15rem;
+            margin-bottom: 30px;
+            text-align: justify;
+            font-weight: 400;
         }
 
-        /* Mensagem de copiado */
-        .toast-msg {
+        /* Destaque suave para os momentos mais marcantes */
+        .highlight {
+            font-style: italic;
+            color: #1a1a1a;
+            border-left: 2px solid var(--accent-color);
+            padding-left: 20px;
+            margin: 40px 0;
+        }
+
+        /* Rodapé Discreto */
+        footer {
             text-align: center;
-            font-size: 0.85rem;
-            color: var(--accent);
-            margin-top: 15px;
-            min-height: 20px;
-            opacity: 0;
-            transition: opacity 0.3s;
+            margin-top: 80px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            color: var(--light-text);
+            text-transform: uppercase;
         }
 
-        .toast-msg.show {
-            opacity: 1;
+        .divider {
+            height: 1px;
+            width: 50px;
+            background-color: var(--accent-color);
+            margin: 40px auto;
+        }
+
+        /* Animação CSS */
+        @keyframes fadeInReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsividade para Telas Menores */
+        @media (max-width: 480px) {
+            body {
+                padding: 30px 25px;
+            }
+            h1 {
+                font-size: 1.4rem;
+            }
+            .story-content p {
+                font-size: 1.05rem;
+                text-align: left;
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Gerador de Senhas</h1>
-        
-        <div class="password-display">
-            <span class="password-text" id="password-result">SenhaAqui</span>
-            <button class="copy-btn" id="copy-btn" title="Copiar senha">
-                <i class="fa-regular fa-copy"></i>
-            </button>
-        </div>
+        <header>
+            <div class="flower-icon">◇ ❀ ◇</div>
+            <h1>O Universo em Coisas Simples</h1>
+            <div class="date">Uma história sobre o acaso</div>
+        </header>
 
-        <div class="setting-group">
-            <div class="length-slider-container">
-                <label for="pwd-length">Tamanho da senha</label>
-                <span id="length-value">16</span>
-            </div>
-            <input type="range" id="pwd-length" min="6" max="32" value="16">
-        </div>
+        <main class="story-content">
+            <p>
+                Às vezes, a vida nos surpreende da maneira mais silenciosa e bonita possível. No meio do barulho dos dias, das rotinas automáticas e das certezas que achamos que temos, o destino decide cruzar caminhos de uma forma completamente inesperada. Eu não estava procurando, eu não planejava, nem sequer passava pela minha cabeça que um instante comum mudaria tanto a minha perspectiva.
+            </p>
 
-        <div class="setting-group">
-            <label class="checkbox-container">
-                Letras Maiúsculas (A-Z)
-                <input type="checkbox" id="inc-uppercase" checked>
-            </label>
-            <label class="checkbox-container">
-                Letras Minúsculas (a-z)
-                <input type="checkbox" id="inc-lowercase" checked>
-            </label>
-            <label class="checkbox-container">
-                Números (0-9)
-                <input type="checkbox" id="inc-numbers" checked>
-            </label>
-            <label class="checkbox-container">
-                Símbolos (!@#$%)
-                <input type="checkbox" id="inc-symbols" checked>
-            </label>
-        </div>
+            <p>
+                Tudo começou com um gesto despretensioso. Era Dia dos Namorados, e por algum motivo que a lógica não explica, você parou ali perto. Você comentou algo alto, e uma curiosidade repentina — daquelas que parecem guiadas por uma força maior — me fez te fazer uma pergunta simples: <em>"Você já ganhou uma rosa hoje?"</em>. Quando você respondeu que não, e que sua cor favorita era o branco, algo em mim se moveu. 
+            </p>
 
-        <button class="generate-btn" id="generate-btn">Gerar Senha</button>
-        
-        <div class="toast-msg" id="toast">Senha copiada com sucesso!</div>
+            <p class="highlight">
+                Fui buscar aquela rosa branca sem saber seu nome, sem conhecer sua história, sem ter a menor ideia de quem você era. Era apenas a vontade pura de entregar um sorriso a uma desconhecida. Mal sabia eu que aquela rosa seria o primeiro verso de uma história linda.
+            </p>
+
+            <p>
+                Os dias passaram, o destino fez questão de nos aproximar e finalmente descobri como você se chamava. Passamos a nos ver com uma certa frequência, e logo aquele encontro se estendeu para as telas do celular. Dois dias de conversas se transformaram em cinco. Cinco dias de diálogos ininterruptos, de mensagens que fluíam sem esforço e de uma conexão que parecia ignorar completamente a pressa do relógio. Parecia que estávamos apenas correndo para compensar o tempo em que não sabíamos da existência um do outro.
+            </p>
+
+            <p>
+                E hoje, celebrando esse curto e intenso espaço de tempo, eu quis te dar um presente. Não era nada extravagante para os padrões de um mundo que muitas vezes só valoriza o excesso. Para mim, era algo simples; uma forma tangível de demonstrar que eu me importo, que eu presto atenção em você e que a sua presença faz diferença. 
+            </p>
+
+            <p>
+                Mas a sua reação redesenhou tudo dentro de mim. Ver a sua felicidade transbordar daquele jeito, ver o quanto você ficou genuinamente tocada e radiante por um gesto tão singelo, foi uma das cenas mais bonitas que já presenciei. 
+            </p>
+
+            <p class="highlight">
+                Nesse pouco tempo mergulhando no seu jeito, eu me vi completamente apaixonado por quem você é. Sou apaixonado pela forma como você enxerga a vida, pela sua sensibilidade e, acima de tudo, por essa capacidade mágica que você tem de voltar a ser criança diante das coisas simples. 
+            </p>
+
+            <p>
+                Ver você encontrar uma alegria tão pura na simplicidade me faz perceber o quão rara você é. Em um mundo complexo e apressado, a sua leveza é um refúgio. Tem sido absolutamente maravilhoso te conhecer a cada dia, descobrir seus detalhes e partilhar do seu tempo. Mas o que realmente faz meu coração acelerar é saber que, mesmo com pequenos gestos, eu tenho o privilégio de te fazer feliz.
+            </p>
+
+            <div class="divider"></div>
+        </main>
+
+        <footer>
+            De quem adora ver você sorrir
+        </footer>
     </div>
 
-    <script>
-        // Seleção dos elementos do DOM
-        const resultEl = document.getElementById('password-result');
-        const lengthEl = document.getElementById('pwd-length');
-        const lengthValEl = document.getElementById('length-value');
-        const uppercaseEl = document.getElementById('inc-uppercase');
-        const lowercaseEl = document.getElementById('inc-lowercase');
-        const numbersEl = document.getElementById('inc-numbers');
-        const symbolsEl = document.getElementById('inc-symbols');
-        const generateBtn = document.getElementById('generate-btn');
-        const copyBtn = document.getElementById('copy-btn');
-        const toastEl = document.getElementById('toast');
-
-        // Conjuntos de caracteres disponíveis
-        const randomFunc = {
-            lower: getRandomLower,
-            upper: getRandomUpper,
-            number: getRandomNumber,
-            symbol: getRandomSymbol
-        };
-
-        // Funções para gerar caracteres aleatórios usando a tabela ASCII
-        function getRandomLower() {
-            return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
-        }
-
-        function getRandomUpper() {
-            return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
-        }
-
-        function getRandomNumber() {
-            return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
-        }
-
-        function getRandomSymbol() {
-            const symbols = '!@#$%^&*(){}[]=<>/,.';
-            return symbols[Math.floor(Math.random() * symbols.length)];
-        }
-
-        // Atualiza o valor do tamanho da senha quando o slider é movido
-        lengthEl.addEventListener('input', (e) => {
-            lengthValEl.innerText = e.target.value;
-        });
-
-        // Evento de clique no botão de gerar
-        generateBtn.addEventListener('click', () => {
-            const length = +lengthEl.value; // Converte para número
-            const hasLower = lowercaseEl.checked;
-            const hasUpper = uppercaseEl.checked;
-            const hasNumber = numbersEl.checked;
-            const hasSymbol = symbolsEl.checked;
-
-            resultEl.innerText = generatePassword(hasLower, hasUpper, hasNumber, hasSymbol, length);
-        });
-
-        // Função principal que constrói a senha
-        function generatePassword(lower, upper, number, symbol, length) {
-            let generatedPassword = '';
-            const typesCount = lower + upper + number + symbol;
-            
-            // Array com os tipos de caracteres selecionados
-            const typesArr = [{lower}, {upper}, {number}, {symbol}].filter(item => Object.values(item)[0]);
-            
-            // Se nenhum checkbox estiver marcado, retorna vazio
-            if (typesCount === 0) {
-                return '';
-            }
-
-            // Loop para gerar os caracteres
-            for (let i = 0; i < length; i += typesCount) {
-                typesArr.forEach(type => {
-                    const funcName = Object.keys(type)[0];
-                    generatedPassword += randomFunc[funcName]();
-                });
-            }
-
-            // Embaralha e corta a senha para o tamanho exato solicitado
-            const finalPassword = generatedPassword.slice(0, length);
-            
-            return finalPassword;
-        }
-
-        // Função para copiar a senha gerada
-        copyBtn.addEventListener('click', () => {
-            const textarea = document.createElement('textarea');
-            const password = resultEl.innerText;
-
-            if (!password || password === 'SenhaAqui' || password === '') {
-                return;
-            }
-
-            textarea.value = password;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            textarea.remove();
-
-            // Mostra a mensagem de sucesso (Toast)
-            toastEl.classList.add('show');
-            setTimeout(() => {
-                toastEl.classList.remove('show');
-            }, 2500);
-        });
-
-        // Gera uma senha inicial ao carregar a página
-        generateBtn.click();
-    </script>
 </body>
 </html>
