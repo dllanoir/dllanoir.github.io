@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -8,11 +8,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@200;400;500;600&display=swap" rel="stylesheet">
-    <!-- FontAwesome para ícones delicados da linha do tempo -->
+    <!-- FontAwesome para ícones delicados da linha do tempo e controle de música -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
-        /* Configurações Globais */
         * {
             margin: 0;
             padding: 0;
@@ -41,7 +40,115 @@
             overflow-x: hidden;
         }
 
-        /* Container Principal */
+        #welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-color);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), visibility 1s;
+            padding: 20px;
+        }
+
+        #welcome-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .welcome-card {
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeInWelcome 1.5s ease-out;
+        }
+
+        .welcome-flower {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 25px;
+            animation: pulseFlower 3s infinite ease-in-out;
+        }
+
+        .welcome-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 200;
+            font-size: 1.2rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            color: var(--light-text);
+        }
+
+        .welcome-btn {
+            background-color: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--text-color);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 15px 35px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(191, 163, 145, 0.1);
+        }
+
+        .welcome-btn:hover {
+            background-color: var(--accent-color);
+            color: var(--white);
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(191, 163, 145, 0.25);
+        }
+
+        .welcome-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #music-control {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            background: var(--white);
+            border: 1px solid rgba(191, 163, 145, 0.3);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            color: var(--accent-color);
+        }
+
+        #music-control:hover {
+            transform: scale(1.1);
+            border-color: var(--accent-color);
+            box-shadow: 0 8px 20px rgba(191, 163, 145, 0.2);
+        }
+
+        .music-vinyl {
+            font-size: 1.2rem;
+            transition: transform 0.1s linear;
+        }
+
+        .playing .music-vinyl {
+            animation: spinVinyl 3.5s linear infinite;
+        }
+
         .container {
             max-width: 650px;
             width: 100%;
@@ -133,14 +240,6 @@
             animation: fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Página 1: Estilização do Texto Poético */
         .story-content p {
             font-size: 1.15rem;
             margin-bottom: 30px;
@@ -156,7 +255,6 @@
             margin: 40px 0;
         }
 
-        /* Página 2: Linha do Tempo (Roadmap) */
         .timeline {
             position: relative;
             padding-left: 35px;
@@ -260,6 +358,42 @@
             margin: 40px auto;
         }
 
+        /* Animações Diversas */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInWelcome {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulseFlower {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes spinVinyl {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
         /* Responsividade */
         @media (max-width: 480px) {
             body {
@@ -278,10 +412,31 @@
             .timeline-card {
                 padding: 20px;
             }
+            #music-control {
+                bottom: 20px;
+                right: 20px;
+            }
         }
     </style>
 </head>
 <body>
+
+    <div id="welcome-overlay">
+        <div class="welcome-card">
+            <div class="welcome-flower">❀</div>
+            <div class="welcome-title">O Universo em Detalhes</div>
+            <button class="welcome-btn" id="enter-btn" onclick="startExperience()">
+                <i class="fa-solid fa-music" style="margin-right: 8px;"></i> Entrar com música
+            </button>
+        </div>
+    </div>
+
+    <!-- Elemento invisível que gerencia o Player do YouTube -->
+    <div id="yt-player-container" style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; left: -9999px;"></div>
+
+    <div id="music-control" onclick="toggleMusic()" title="Pausar / Tocar Música">
+        <i class="fa-solid fa-compact-disc music-vinyl"></i>
+    </div>
 
     <div class="container">
         <!-- Cabeçalho Principal -->
@@ -384,24 +539,85 @@
         </footer>
     </div>
 
-    <!-- Script Simples para Alternar Páginas -->
     <script>
+        // Carrega assincronamente a API do Player do YouTube
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        let player;
+        let isMusicPlaying = false;
+        const enterBtn = document.getElementById('enter-btn');
+
+        // Função obrigatória da API do YouTube
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('yt-player-container', {
+                height: '0',
+                width: '0',
+                videoId: 'u2ah9tWTkmk', // ID do vídeo do YouTube
+                playerVars: {
+                    'autoplay': 0,
+                    'loop': 1,
+                    'playlist': 'u2ah9tWTkmk', // Necessário para fazer o loop funcionar no YouTube
+                    'controls': 0,
+                    'showinfo': 0,
+                    'rel': 0,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        // Quando o reprodutor de vídeo estiver pronto
+        function onPlayerReady(event) {
+            // Habilita o botão caso esteja carregando
+            enterBtn.disabled = false;
+        }
+
+        // Inicia a experiência, esconde a tela inicial e toca a música
+        function startExperience() {
+            const overlay = document.getElementById('welcome-overlay');
+            overlay.classList.add('hidden');
+
+            // Tenta dar play na música do YouTube
+            if (player && typeof player.playVideo === 'function') {
+                player.playVideo();
+                isMusicPlaying = true;
+                document.getElementById('music-control').classList.add('playing');
+            }
+        }
+
+        // Alterna entre Play e Pause usando o botão flutuante
+        function toggleMusic() {
+            if (!player) return;
+
+            if (isMusicPlaying) {
+                player.pauseVideo();
+                isMusicPlaying = false;
+                document.getElementById('music-control').classList.remove('playing');
+            } else {
+                player.playVideo();
+                isMusicPlaying = true;
+                document.getElementById('music-control').classList.add('playing');
+            }
+        }
+
+        // Alterna entre as páginas da SPA
         function showPage(pageId) {
-            // Remove active de todas as views
             document.querySelectorAll('.view').forEach(view => {
                 view.classList.remove('active');
             });
 
-            // Remove active de todos os botões
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
 
-            // Ativa a view e o botão selecionado
             document.getElementById('view-' + pageId).classList.add('active');
             document.getElementById('btn-' + pageId).classList.add('active');
 
-            // Rola suavemente para o topo ao trocar de página
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
