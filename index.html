@@ -1,16 +1,18 @@
-<!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para Alguém Especial</title>
-    <!-- Google Fonts para uma tipografia elegante e minimalista -->
+    <!-- Google Fonts para tipografia elegante -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@200;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome para ícones delicados da linha do tempo -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
-        /* Reset e Variáveis de Estilo */
+        /* Configurações Globais */
         * {
             margin: 0;
             padding: 0;
@@ -18,10 +20,11 @@
         }
 
         :root {
-            --bg-color: #fbf9f6; /* Off-white caloroso e minimalista */
-            --text-color: #2c2c2c; /* Cinza escuro suave para leitura confortável */
-            --accent-color: #bfa391; /* Tom pastel suave que lembra a delicadeza dos detalhes */
+            --bg-color: #fbf9f6; /* Off-white aconchegante */
+            --text-color: #2c2c2c; /* Grafite suave para leitura */
+            --accent-color: #bfa391; /* Tom pastel romântico (rose/bege) */
             --light-text: #757575;
+            --white: #ffffff;
         }
 
         body {
@@ -31,26 +34,24 @@
             line-height: 1.8;
             letter-spacing: 0.02em;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
             padding: 40px 20px;
             overflow-x: hidden;
         }
 
-        /* Container Principal com Animação de Entrada */
+        /* Container Principal */
         .container {
             max-width: 650px;
             width: 100%;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInReveal 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            margin-top: 20px;
         }
 
-        /* Cabeçalho Histórico/Minimalista */
+        /* Cabeçalho */
         header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
             font-family: 'Montserrat', sans-serif;
         }
 
@@ -70,15 +71,76 @@
             color: var(--text-color);
         }
 
-        .date {
-            font-size: 0.8rem;
-            color: var(--light-text);
-            letter-spacing: 2px;
-            margin-top: 10px;
-            text-transform: uppercase;
+        /* Menu de Navegação Minimalista */
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 50px;
+            font-family: 'Montserrat', sans-serif;
+            border-bottom: 1px solid rgba(191, 163, 145, 0.2);
+            padding-bottom: 15px;
         }
 
-        /* Estilização do Texto Poético */
+        .nav-btn {
+            background: none;
+            border: none;
+            font-family: inherit;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--light-text);
+            cursor: pointer;
+            padding: 5px 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            color: var(--text-color);
+        }
+
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -16px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-btn.active {
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .nav-btn.active::after {
+            width: 100%;
+        }
+
+        /* Controle de Visualização das Páginas (Views) */
+        .view {
+            display: none;
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        .view.active {
+            display: block;
+            animation: fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Página 1: Estilização do Texto Poético */
         .story-content p {
             font-size: 1.15rem;
             margin-bottom: 30px;
@@ -86,7 +148,6 @@
             font-weight: 400;
         }
 
-        /* Destaque suave para os momentos mais marcantes */
         .highlight {
             font-style: italic;
             color: #1a1a1a;
@@ -95,7 +156,93 @@
             margin: 40px 0;
         }
 
-        /* Rodapé Discreto */
+        /* Página 2: Linha do Tempo (Roadmap) */
+        .timeline {
+            position: relative;
+            padding-left: 35px;
+            margin: 30px auto;
+            border-left: 2px solid rgba(191, 163, 145, 0.3);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Ícone/Ponto de marcação na Linha do Tempo */
+        .timeline-dot {
+            position: absolute;
+            left: -46px; /* Alinha perfeitamente com a borda de 2px + padding */
+            top: 4px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background-color: var(--bg-color);
+            border: 2px solid var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            font-size: 0.7rem;
+            transition: all 0.4s ease;
+            z-index: 2;
+        }
+
+        .timeline-item:hover .timeline-dot {
+            background-color: var(--accent-color);
+            color: var(--white);
+            transform: scale(1.2);
+            box-shadow: 0 0 10px rgba(191, 163, 145, 0.4);
+        }
+
+        /* Cartão de Conteúdo da Linha do Tempo */
+        .timeline-card {
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.015);
+            border: 1px solid rgba(191, 163, 145, 0.1);
+            transform: translateX(0);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-card {
+            transform: translateX(8px);
+            box-shadow: 0 10px 25px rgba(191, 163, 145, 0.08);
+            border-color: rgba(191, 163, 145, 0.3);
+        }
+
+        .timeline-date {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--accent-color);
+            letter-spacing: 1.5px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .timeline-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: var(--text-color);
+            letter-spacing: 0.5px;
+        }
+
+        .timeline-card p {
+            font-size: 1rem;
+            color: var(--light-text);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Rodapé */
         footer {
             text-align: center;
             margin-top: 80px;
@@ -113,25 +260,23 @@
             margin: 40px auto;
         }
 
-        /* Animação CSS */
-        @keyframes fadeInReveal {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsividade para Telas Menores */
+        /* Responsividade */
         @media (max-width: 480px) {
             body {
-                padding: 30px 25px;
+                padding: 30px 20px;
             }
             h1 {
                 font-size: 1.4rem;
             }
+            .nav-menu {
+                gap: 20px;
+            }
             .story-content p {
                 font-size: 1.05rem;
                 text-align: left;
+            }
+            .timeline-card {
+                padding: 20px;
             }
         }
     </style>
@@ -139,52 +284,126 @@
 <body>
 
     <div class="container">
+        <!-- Cabeçalho Principal -->
         <header>
             <div class="flower-icon">◇ ❀ ◇</div>
-            <h1>O Universo em Coisas Simples</h1>
-            <div class="date">Uma história sobre o acaso</div>
+            <h1>O Universo em Detalhes</h1>
         </header>
 
-        <main class="story-content">
-            <p>
-                Às vezes, a vida nos surpreende da maneira mais silenciosa e bonita possível. No meio do barulho dos dias, das rotinas automáticas e das certezas que achamos que temos, o destino decide cruzar caminhos de uma forma completamente inesperada. Eu não estava procurando, eu não planejava, nem sequer passava pela minha cabeça que um instante comum mudaria tanto a minha perspectiva.
-            </p>
+        <!-- Menu de Navegação entre Páginas -->
+        <nav class="nav-menu">
+            <button class="nav-btn active" id="btn-story" onclick="showPage('story')">Nossa História</button>
+            <button class="nav-btn" id="btn-timeline" onclick="showPage('timeline')">Linha do Tempo</button>
+        </nav>
 
-            <p>
-                Tudo começou com um gesto despretensioso. Era Dia dos Namorados, e por algum motivo que a lógica não explica, você parou ali perto. Você comentou algo alto, e uma curiosidade repentina — daquelas que parecem guiadas por uma força maior — me fez te fazer uma pergunta simples: <em>"Você já ganhou uma rosa hoje?"</em>. Quando você respondeu que não, e que sua cor favorita era o branco, algo em mim se moveu. 
-            </p>
+        <!-- PÁGINA 1: HISTÓRIA -->
+        <main id="view-story" class="view active">
+            <div class="story-content">
+                <p>
+                    Às vezes, a vida nos surpreende da maneira mais silenciosa e bonita possível. No meio do barulho dos dias, das rotinas automáticas e das certezas que achamos que temos, o destino decide cruzar caminhos de uma forma completamente inesperada. Eu não estava procurando, eu não planejava, nem sequer passava pela minha cabeça que um instante comum mudaria tanto a minha perspectiva.
+                </p>
 
-            <p class="highlight">
-                Fui buscar aquela rosa branca sem saber seu nome, sem conhecer sua história, sem ter a menor ideia de quem você era. Era apenas a vontade pura de entregar um sorriso a uma desconhecida. Mal sabia eu que aquela rosa seria o primeiro verso de uma história linda.
-            </p>
+                <p>
+                    Tudo começou com um gesto despretensioso. Era Dia dos Namorados, e por algum motivo que a lógica não explica, você parou ali perto. Você comentou algo alto, e uma curiosidade repentina — daquelas que parecem guiadas por uma força maior — me fez te fazer uma pergunta simples: <em>"Você já ganhou uma rosa hoje?"</em>. Quando você respondeu que não, e que sua cor favorita era o branco, algo em mim se moveu. 
+                </p>
 
-            <p>
-                Os dias passaram, o destino fez questão de nos aproximar e finalmente descobri como você se chamava. Passamos a nos ver com uma certa frequência, e logo aquele encontro se estendeu para as telas do celular. Dois dias de conversas se transformaram em cinco. Cinco dias de diálogos ininterruptos, de mensagens que fluíam sem esforço e de uma conexão que parecia ignorar completamente a pressa do relógio. Parecia que estávamos apenas correndo para compensar o tempo em que não sabíamos da existência um do outro.
-            </p>
+                <p class="highlight">
+                    Fui buscar aquela rosa branca sem saber seu nome, sem conhecer sua história, sem ter a menor ideia de quem você era. Era apenas a vontade pura de entregar um sorriso a uma desconhecida. Mal sabia eu que aquela rosa seria o primeiro verso de uma história linda.
+                </p>
 
-            <p>
-                E hoje, celebrando esse curto e intenso espaço de tempo, eu quis te dar um presente. Não era nada extravagante para os padrões de um mundo que muitas vezes só valoriza o excesso. Para mim, era algo simples; uma forma tangível de demonstrar que eu me importo, que eu presto atenção em você e que a sua presença faz diferença. 
-            </p>
+                <p>
+                    Os dias passaram, o destino fez questão de nos aproximar e finalmente descobri como você se chamava. Passamos a nos ver com uma certa frequência, e logo aquele encontro se estendeu para as telas do celular. Dois dias de conversas se transformaram em cinco. Cinco dias de diálogos ininterruptos, de mensagens que fluíam sem esforço e de uma conexão que parecia ignorar completamente a pressa do relógio. Parecia que estávamos apenas correndo para compensar o tempo em que não sabíamos da existência um do outro.
+                </p>
 
-            <p>
-                Mas a sua reação redesenhou tudo dentro de mim. Ver a sua felicidade transbordar daquele jeito, ver o quanto você ficou genuinamente tocada e radiante por um gesto tão singelo, foi uma das cenas mais bonitas que já presenciei. 
-            </p>
+                <p>
+                    E hoje, celebrando esse curto e intenso espaço de tempo, eu quis te dar um presente. Não era nada extravagante para os padrões de um mundo que muitas vezes só valoriza o excesso. Para mim, era algo simples; uma forma tangível de demonstrar que eu me importo, que eu presto atenção em você e que a sua presença faz diferença. 
+                </p>
 
-            <p class="highlight">
-                Nesse pouco tempo mergulhando no seu jeito, eu me vi completamente apaixonado por quem você é. Sou apaixonado pela forma como você enxerga a vida, pela sua sensibilidade e, acima de tudo, por essa capacidade mágica que você tem de voltar a ser criança diante das coisas simples. 
-            </p>
+                <p>
+                    Mas a sua reação redesenhou tudo dentro de mim. Ver a sua felicidade transbordar daquele jeito, ver o quanto você ficou genuinamente tocada e radiante por um gesto tão singelo, foi uma das cenas mais bonitas que já presenciei. 
+                </p>
 
-            <p>
-                Ver você encontrar uma alegria tão pura na simplicidade me faz perceber o quão rara você é. Em um mundo complexo e apressado, a sua leveza é um refúgio. Tem sido absolutamente maravilhoso te conhecer a cada dia, descobrir seus detalhes e partilhar do seu tempo. Mas o que realmente faz meu coração acelerar é saber que, mesmo com pequenos gestos, eu tenho o privilégio de te fazer feliz.
-            </p>
+                <p class="highlight">
+                    Nesse pouco tempo mergulhando no seu jeito, eu me vi completamente apaixonado por quem você é. Sou apaixonado pela forma como você enxerga a vida, pela sua sensibilidade e, acima de tudo, por essa capacidade mágica que você tem de voltar a ser criança diante das coisas simples. 
+                </p>
 
-            <div class="divider"></div>
+                <p>
+                    Ver você encontrar uma alegria tão pura na simplicidade me faz perceber o quão rara você é. Em um mundo complexo e apressado, a sua leveza é um refúgio. Tem sido absolutamente maravilhoso te conhecer a cada dia, descobrir seus detalhes e partilhar do seu tempo. Mas o que realmente faz meu coração acelerar é saber que, mesmo com pequenos gestos, eu tenho o privilégio de te fazer feliz.
+                </p>
+                <div class="divider"></div>
+            </div>
         </main>
 
+        <!-- PÁGINA 2: ROADMAP / LINHA DO TEMPO -->
+        <section id="view-timeline" class="view">
+            <div class="timeline">
+                
+                <!-- Item 1: Dia dos Namorados -->
+                <div class="timeline-item">
+                    <div class="timeline-dot">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <div class="timeline-card">
+                        <span class="timeline-date">12 / 06 / 2026</span>
+                        <h3>Dia dos Namorados</h3>
+                        <p>O dia em que o acaso agiu. Uma rosa branca entregue a quem eu ainda nem sabia o nome, mas que desde aquele instante, já desorganizava docemente a minha rotina.</p>
+                    </div>
+                </div>
+
+                <!-- Item 2: Primeira Mensagem -->
+                <div class="timeline-item">
+                    <div class="timeline-dot">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </div>
+                    <div class="timeline-card">
+                        <span class="timeline-date">30 / 06 / 2026</span>
+                        <h3>Primeira Mensagem</h3>
+                        <p>O início de tudo no mundo virtual. A partir daqui, as conversas diárias pelo Instagram encurtaram distâncias, abrindo espaço para cinco dias intensos de sintonia absoluta.</p>
+                    </div>
+                </div>
+
+                <!-- Item 3: Pedido de Namoro -->
+                <div class="timeline-item">
+                    <div class="timeline-dot">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                    <div class="timeline-card">
+                        <span class="timeline-date">07 / 07 / 2026</span>
+                        <h3>Pedido de Namoro</h3>
+                        <p>Com um gesto simples e carinhoso, o que nossos corações já sabiam foi oficializado. O dia em que escolhi segurar sua mão e caminhar ao seu lado com certeza e afeto.</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="divider"></div>
+        </section>
+
+        <!-- Rodapé Estático -->
         <footer>
             De quem adora ver você sorrir
         </footer>
     </div>
 
+    <!-- Script Simples para Alternar Páginas -->
+    <script>
+        function showPage(pageId) {
+            // Remove active de todas as views
+            document.querySelectorAll('.view').forEach(view => {
+                view.classList.remove('active');
+            });
+
+            // Remove active de todos os botões
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Ativa a view e o botão selecionado
+            document.getElementById('view-' + pageId).classList.add('active');
+            document.getElementById('btn-' + pageId).classList.add('active');
+
+            // Rola suavemente para o topo ao trocar de página
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
