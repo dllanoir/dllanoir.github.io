@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para Alguém Especial</title>
-    <!-- Google Fonts para tipografia elegante -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@200;400;500;600&display=swap" rel="stylesheet">
-    <!-- FontAwesome para ícones delicados da linha do tempo e controle de música -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
@@ -338,6 +336,48 @@
             color: var(--light-text);
             margin: 0;
             line-height: 1.6;
+            text-align: justify;
+        }
+
+        /* Elementos de Texto Oculto (Expandível) */
+        .full-text {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed rgba(191, 163, 145, 0.3);
+            animation: fadeInSimple 0.4s ease forwards;
+        }
+
+        .full-text p {
+            font-size: 0.95rem;
+            color: var(--text-color);
+            margin-bottom: 15px;
+        }
+
+        .full-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .toggle-text-btn {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            padding: 5px 0 0 0;
+            margin-top: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .toggle-text-btn:hover {
+            color: var(--text-color);
         }
 
         /* Rodapé */
@@ -364,6 +404,11 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        @keyframes fadeInSimple {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeInWelcome {
@@ -424,14 +469,13 @@
     <div id="welcome-overlay">
         <div class="welcome-card">
             <div class="welcome-flower">❀</div>
-            <div class="welcome-title">O Universo em Detalhes</div>
+            <div class="welcome-title">O Universo in Detalhes</div>
             <button class="welcome-btn" id="enter-btn" onclick="startExperience()">
                 <i class="fa-solid fa-music" style="margin-right: 8px;"></i> Entrar com música
             </button>
         </div>
     </div>
 
-    <!-- Elemento invisível que gerencia o Player do YouTube -->
     <div id="yt-player-container" style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; left: -9999px;"></div>
 
     <div id="music-control" onclick="toggleMusic()" title="Pausar / Tocar Música">
@@ -439,19 +483,16 @@
     </div>
 
     <div class="container">
-        <!-- Cabeçalho Principal -->
         <header>
             <div class="flower-icon">◇ ❀ ◇</div>
             <h1>O Universo em Detalhes</h1>
         </header>
 
-        <!-- Menu de Navegação entre Páginas -->
         <nav class="nav-menu">
             <button class="nav-btn active" id="btn-story" onclick="showPage('story')">Nossa História</button>
             <button class="nav-btn" id="btn-timeline" onclick="showPage('timeline')">Linha do Tempo</button>
         </nav>
 
-        <!-- PÁGINA 1: HISTÓRIA -->
         <main id="view-story" class="view active">
             <div class="story-content">
                 <p>
@@ -467,7 +508,7 @@
                 </p>
 
                 <p>
-                    Os dias passaram, o destino fez questão de nos aproximar e finalmente descobri como você se chamava. Passamos a nos ver com uma certa frequência, e logo aquele encontro se estendeu para as telas do celular. Dois dias de conversas se transformaram em cinco. Cinco dias de diálogos ininterruptos, de mensagens que fluíam sem esforço e de uma conexão que parecia ignorar completamente a pressa do relógio. Parecia que estávamos apenas correndo para compensar o tempo em que não sabíamos da existência um do outro.
+                    Os dias passaram, o destino fez questão de nos aproximar e finalmente descobri como você se chamava. Passamos a nos ver com uma certa frequência, e logo aquele encontro se estendeu para as telas do celular. Dois dias de conversas se transformaram em cinco. Cinco dias de diálogos ininterruptos, de mensagens que fluíam sem effortless e de uma conexão que parecia ignorar completamente a pressa do relógio. Parecia que estávamos apenas correndo para compensar o tempo em que não sabíamos da existência um do outro.
                 </p>
 
                 <p>
@@ -489,11 +530,9 @@
             </div>
         </main>
 
-        <!-- PÁGINA 2: ROADMAP / LINHA DO TEMPO -->
         <section id="view-timeline" class="view">
             <div class="timeline">
                 
-                <!-- Item 1: Dia dos Namorados -->
                 <div class="timeline-item">
                     <div class="timeline-dot">
                         <i class="fa-solid fa-seedling"></i>
@@ -505,7 +544,6 @@
                     </div>
                 </div>
 
-                <!-- Item 2: Primeira Mensagem -->
                 <div class="timeline-item">
                     <div class="timeline-dot">
                         <i class="fa-solid fa-paper-plane"></i>
@@ -517,7 +555,6 @@
                     </div>
                 </div>
 
-                <!-- Item 3: Pedido de Namoro -->
                 <div class="timeline-item">
                     <div class="timeline-dot">
                         <i class="fa-solid fa-heart"></i>
@@ -529,11 +566,50 @@
                     </div>
                 </div>
 
+                <div class="timeline-item">
+                    <div class="timeline-dot">
+                        <i class="fa-solid fa-gem"></i>
+                    </div>
+                    <div class="timeline-card">
+                        <span class="timeline-date">11 / 07 / 2026</span>
+                        <h3>Um Ponto de Luz</h3>
+                        <p>O dia em que decidi eternizar o seu brilho próprio. Um anel solitário entregue para lembrar que a sua presença é única, iluminando tudo ao meu redor através de um gesto sincero e cheio de cuidado.</p>
+                        
+                        <div class="full-text">
+                            <p>Assim como aquela rosa branca que te entreguei sem nem saber o teu nome, hoje eu quis colocar em suas mãos um pequeno ponto de luz. Um anel solitário.</p>
+                            <p>Escolhi essa joia porque, para mim, ela tem a tua essência. O solitário carrega uma única pedra, delicada e brilhante, que se destaca por si só. Ele me lembra a forma como você brilha no mundo: única, singular, capaz de transformar um dia comum em algo extraordinário com o seu sorriso mais puro.</p>
+                            <p>Ver o teu olhar se iluminar ao receber esse detalhe me deu a certeza de que o amor mora, de fato, na simplicidade. Esse anel é o meu início silencioso, o meu olhar admirado voltado inteiramente para você. Ele é uma promessa bonita de que esse brilho que vi em você desde o primeiro dia agora tem um lugar seguro para repousar. É o primeiro passo de um caminho que eu já não imagino trilhar sem você.</p>
+                        </div>
+                        <button class="toggle-text-btn" onclick="toggleTimelineText(this)">
+                            Ler texto completo <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot">
+                        <i class="fa-solid fa-infinity"></i>
+                    </div>
+                    <div class="timeline-card">
+                        <span class="timeline-date">15 / 07 / 2026</span>
+                        <h3>O Círculo do Nosso Infinito</h3>
+                        <p>O momento em que o "eu" e o "você" finalmente se transformam em um elo inquebrável. O dia de buscar nossas alianças para carregar um ao outro na rotina e selar a escolha de caminhar lado a lado.</p>
+                        
+                        <div class="full-text">
+                            <p>Há poucos dias, eu te entreguei um ponto de luz. Um detalhe solitário que celebrava quem você é. Hoje, aquele brilho ganha companhia, ganha forma e ganha o seu significado mais bonito.</p>
+                            <p>Estas alianças que agora dividimos não são apenas duas peças de metal. Elas são um círculo perfeito — sem começo e sem fim. Elas representam a nossa escolha diária de caminhar lado a lado, de compartilhar os risos desatentos, as conversas infinitas que começaram de repente e aquela alegria quase infantil que você me faz sentir e que me deixa cada vez mais apaixonado.</p>
+                            <p>O solitário era a promessa; a aliança é o nosso presente e o rascunho do nosso futuro. Ao colocar esse anel em seu dedo, e ao carregar o meu comigo, eu levo um pedaço de você para onde quer que eu vá. Obrigado por me ensinar que o amor mais bonito nasce do inesperado, cresce no detalhe de uma rosa e se eterniza na decisão de sermos, finalmente, um "nós".</p>
+                        </div>
+                        <button class="toggle-text-btn" onclick="toggleTimelineText(this)">
+                            Ler texto completo <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                    </div>
+                </div>
+
             </div>
             <div class="divider"></div>
         </section>
 
-        <!-- Rodapé Estático -->
         <footer>
             De quem adora ver você sorrir
         </footer>
@@ -573,7 +649,6 @@
 
         // Quando o reprodutor de vídeo estiver pronto
         function onPlayerReady(event) {
-            // Habilita o botão caso esteja carregando
             enterBtn.disabled = false;
         }
 
@@ -582,7 +657,6 @@
             const overlay = document.getElementById('welcome-overlay');
             overlay.classList.add('hidden');
 
-            // Tenta dar play na música do YouTube
             if (player && typeof player.playVideo === 'function') {
                 player.playVideo();
                 isMusicPlaying = true;
@@ -619,6 +693,21 @@
             document.getElementById('btn-' + pageId).classList.add('active');
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Função para expandir e recolher os textos da linha do tempo
+        function toggleTimelineText(button) {
+            const card = button.closest('.timeline-card');
+            const fullText = card.querySelector('.full-text');
+            const icon = button.querySelector('i');
+            
+            if (fullText.style.display === 'none' || !fullText.style.display) {
+                fullText.style.display = 'block';
+                button.innerHTML = 'Fechar texto <i class="fa-solid fa-chevron-up"></i>';
+            } else {
+                fullText.style.display = 'none';
+                button.innerHTML = 'Ler texto completo <i class="fa-solid fa-chevron-down"></i>';
+            }
         }
     </script>
 </body>
