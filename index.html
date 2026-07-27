@@ -6,7 +6,8 @@
     <title>Para Alguém Especial</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@200;400;500;600&display=swap" rel="stylesheet">
+    <!-- Adicionei a fonte Great Vibes para a assinatura -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lora:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@200;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
@@ -357,6 +358,17 @@
         .full-text p:last-child {
             margin-bottom: 0;
         }
+        
+        /* Classe da assinatura adicionada */
+        .signature {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2rem !important;
+            color: var(--accent-color) !important;
+            text-align: right !important;
+            margin-top: 25px !important;
+            margin-bottom: 5px !important;
+            padding-right: 15px;
+        }
 
         .toggle-text-btn {
             background: none;
@@ -469,7 +481,7 @@
     <div id="welcome-overlay">
         <div class="welcome-card">
             <div class="welcome-flower">❀</div>
-            <div class="welcome-title">O Universo in Detalhes</div>
+            <div class="welcome-title">O Universo em Detalhes</div>
             <button class="welcome-btn" id="enter-btn" onclick="startExperience()">
                 <i class="fa-solid fa-music" style="margin-right: 8px;"></i> Entrar com música
             </button>
@@ -606,19 +618,29 @@
                     </div>
                 </div>
 
+                <!-- Nova entrada do dia 22 adicionada aqui -->
                 <div class="timeline-item">
                     <div class="timeline-dot">
-                        <i class="fa-solid fa-infinity"></i>
+                        <i class="fa-solid fa-feather-pointed"></i>
                     </div>
                     <div class="timeline-card">
-                        <span class="timeline-date">20 / 07 / 2026</span>
-                        <h3>Teste</h3>
-                        <p>resumo</p>
+                        <span class="timeline-date">22 / 07 / 2026</span>
+                        <h3>Quando o Amor Acontece</h3>
+                        <p>Dizem que o amor verdadeiro surge quando menos esperamos. Você não apenas chegou, mas aconteceu em minha vida, trazendo luz, desfazendo meus medos antigos e me mostrando a beleza de um sentimento simples e genuíno.</p>
                         
                         <div class="full-text">
-                            <p>paragrofo 1</p>
-                            <p>paragrofo 2</p>
-                            <p>paragrofo 3</p>
+                            <p>Eu busquei palavras mais refinadas para me expressar, mas confesso que fico perdida com tantas opções... Então optei por falar do meu jeito mesmo.</p>
+                            <p>Sempre ouvi dizer que quando a gente para de procurar o amor, ele acontece. Eu não acreditava nisso — até te conhecer, até o sentimento mais lindo e genuíno começar a florescer no meu coração.</p>
+                            <p>Eu tinha medo de amar alguém. Não porque meu amor fosse ruim, mas porque detestava a ideia de estar vulnerável. Isso gerava dúvidas, eu sempre me sentia perdida.</p>
+                            <p>Poderia dizer “até você chegar”, mas “até você acontecer” se encaixa muito melhor. Você não simplesmente chegou: você, de fato, é um acontecimento na minha vida. E posso dizer, com toda a certeza, um dos melhores.</p>
+                            <p>Você chegou de maneira tão calma, tão leve... Não sei dizer o momento exato em que percebi o que estava sentindo; quando vi, já era amor. O seu carinho entrou como a luz do sol ao amanhecer: de forma tranquila, mas clareando tudo, até os pontos onde a luz não chegava, aquecendo meu coração da maneira mais bela que existe.</p>
+                            <p>Me encantam os teus gestos simples. Na verdade, me encanta perceber que o que o ser humano sempre complicou, você descomplica com total maestria. Seu coração é lindo. Eu me emociono todas as vezes que olho para você, Diogo. Não só pelo sentimento, mas por quem você é.</p>
+                            <p>Você é admirável, pela sua força e pela sua essência. A vida já apareceu tantas vezes com facas na mão e você foi golpeado por todas elas, mas seguiu em frente. Aos poucos, fui percebendo que você já passou por muitas coisas. Na noite em que me contou sobre o seu antigo relacionamento, eu chorei — não só por ser uma história triste, mas por não compreender como alguém teve a capacidade de ferir um ser humano como você.</p>
+                            <p>Sei que todos temos defeitos, mas te vejo como alguém tão bom, generoso e afetuoso — o que, de fato, você é. Em meio a tantas marcas da vida, você não deixou essa bondade morrer. Você faz questão de ver e fazer as pessoas felizes e bem.</p>
+                            <p>Quero que saiba que eu te amo. Desde o dia daquela rosa despretensiosa, o nosso amor só vem crescendo da maneira mais linda que existe. Nos momentos alegres, estaremos juntos; nos momentos de tristeza, também. Eu sempre estarei aqui por você: faça sol ou faça chuva, estarei ao teu lado e serei o seu refúgio.</p>
+                            <p>Eu te amo e sou extremamente grata a Deus por você.</p>
+                            <!-- Assinatura -->
+                            <p class="signature">Bethânia Melquiades</p>
                         </div>
                         <button class="toggle-text-btn" onclick="toggleTimelineText(this)">
                             Ler texto completo <i class="fa-solid fa-chevron-down"></i>
