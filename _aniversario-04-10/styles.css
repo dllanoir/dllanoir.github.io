@@ -32,7 +32,7 @@ footer .couple-logo{width:125px}
 
 /* Story-specific line drawings and mobile composition. */
 .timeline-dot svg{display:block;width:20px;height:20px}
-@media(max-width:850px) and (min-width:601px){.rain-art{display:block;grid-column:1/-1;justify-self:center}.rain-art svg{width:110px;height:104px}}
+@media(max-width:850px) and (min-width:601px){.rain-art{display:block;grid-column:1/-1;justify-self:center}.rain-art svg{width:110px;height:104px}.birthday-star-art{display:block;grid-column:1/-1;justify-self:center}.birthday-star-art svg{width:110px;height:104px}}
 @media(max-width:600px){
   .anniversary{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px 20px}
   .anniversary-number{grid-column:1;grid-row:1;padding:0;border:0;font-size:80px;line-height:1.1;min-width:0}
@@ -41,6 +41,14 @@ footer .couple-logo{width:125px}
   .rain-art{display:block;grid-column:2;grid-row:1;transform:rotate(-5deg)}
   .rain-art svg{width:95px;height:90px;margin:0 auto 8px}
   .rain-art p{font-size:14px!important}
+  .birthday-anniversary{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px 20px}
+  .birthday-number{grid-column:1;grid-row:1;padding:0;border:0;font-size:54px;line-height:1.1;min-width:0}
+  .birthday-number span{font-size:8px;letter-spacing:1px;margin-top:8px}
+  .birthday-anniversary>div:nth-child(2){grid-column:1/-1;grid-row:2;min-width:0}
+  .birthday-star-art{display:block;grid-column:2;grid-row:1;transform:rotate(5deg)}
+  .birthday-star-art svg{width:85px;height:85px;margin:0 auto 6px}
+  .birthday-star-art p{font-size:13px!important}
+  .birthday-actions{gap:14px;flex-direction:column;align-items:flex-start}
   .flower-art{display:block;margin:24px 0 0}
   .flower-art svg{width:100px;height:125px}
   .letter>summary{grid-template-columns:52px minmax(0,1fr);column-gap:14px}
@@ -51,9 +59,28 @@ footer .couple-logo{width:125px}
   .timeline-dot svg{width:19px;height:19px}
 }
 
-/* Birthday Preview Teaser Button */
-.preview-wrap{margin-top:16px;display:flex;align-items:center}
-.preview-btn{display:inline-flex;align-items:center;gap:9px;padding:8px 16px;background:rgba(36,62,54,.05);border:1px solid rgba(36,62,54,.18);border-radius:999px;font:600 11px/1 var(--sans);letter-spacing:1.5px;text-transform:uppercase;color:var(--ink);text-decoration:none;transition:background .25s ease,border-color .25s ease,transform .25s ease}
-.preview-btn:hover{background:rgba(36,62,54,.1);border-color:var(--ink);transform:translateY(-1px)}
-.preview-pulse{width:6px;height:6px;border-radius:50%;background:#b39352;box-shadow:0 0 0 0 rgba(179,147,82,.6);animation:previewPulse 2s infinite ease-out}
-@keyframes previewPulse{0%{box-shadow:0 0 0 0 rgba(179,147,82,.6)}70%{box-shadow:0 0 0 7px rgba(179,147,82,0)}100%{box-shadow:0 0 0 0 rgba(179,147,82,0)}}
+/* Birthday Milestone Styles */
+.birthday-anniversary{background:linear-gradient(135deg,#1c2f27,#122019);color:var(--paper);border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}
+.birthday-number{font:clamp(75px,9vw,125px)/.9 var(--serif);color:#e2dcc8;border-right:1px solid rgba(255,255,255,.15);padding-right:35px;text-align:center}
+.birthday-number span{display:block;font:9px var(--sans);letter-spacing:3px;margin-top:16px;color:#c6ccb9}
+.birthday-actions{display:flex;align-items:center;gap:22px;margin-top:24px;flex-wrap:wrap}
+.birthday-actions .button{margin-top:0;background:#f7f5ed;color:#1d3027}
+.birthday-actions .button:hover{background:#fff;transform:translateY(-2px)}
+.birthday-star-art{text-align:center}
+.birthday-star-art svg{display:block;width:140px;height:140px;margin:0 auto 10px;color:#c6ccb9}
+.birthday-star-art p{font:italic 17px/1.4 var(--serif)!important;color:#d2d8cd}
+.birthday-postcard{border-left:3px solid var(--gold)}
+.postcard-actions{display:flex;gap:18px;margin-top:12px;flex-wrap:wrap}
+.birthday-dot{color:var(--gold)}
+.birthday-card-invite{margin:40px 0 20px;padding:28px 30px;background:#f3f1e6;border:1px solid #dcdfd2;border-radius:6px;text-align:center}
+.invite-badge{display:inline-block;font:600 9px var(--sans);letter-spacing:2px;color:var(--gold);margin-bottom:10px}
+.birthday-card-invite h4{font:24px/1.2 var(--serif);color:var(--ink);margin:0 0 8px}
+.birthday-card-invite p{font-size:14px;color:#576254;margin:0 0 18px!important}
+.birthday-card-invite .button{margin-top:0}
+
+/* Illustrated Vignettes inside Letters */
+.letter-vignette{display:flex;flex-direction:column;align-items:center;text-align:center;margin:10px auto 35px;padding:20px 24px 28px;border-bottom:1px dashed rgba(36,62,54,.18);max-width:440px}
+.letter-vignette svg{width:68px;height:64px;color:var(--ink);opacity:.85;margin-bottom:12px}
+.letter-vignette .vignette-quote{font:italic 16px/1.4 var(--serif)!important;color:#4f5f52;margin:0!important;text-align:center}
+.letter-vignette .vignette-quote em{color:#2a3d33;font-style:normal;display:block;margin-top:4px}
+
