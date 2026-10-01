@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b100e">
+  <meta name="description" content="Uma lembrança que ganhou vida — uma experiência de aniversário para Bethânia.">
+  <title>04.10 — Feliz aniversário, Bethânia.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght,SOFT@9..144,300;9..144,400;9..144,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <script>
+    (function () {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var preview = params.get('preview');
+        var isUnlocked = params.get('unlock') === 'true' || params.get('unlock') === '1' || preview === 'birthday';
+        var isForcedCountdown = preview === 'countdown';
+        var targetTime = new Date('2026-10-04T00:00:00-03:00').getTime();
+        var simulated = params.get('simulatedTime') || params.get('time');
+        var now = simulated ? new Date(simulated).getTime() : Date.now();
+        if (!isUnlocked && (isForcedCountdown || now < targetTime)) {
+          document.documentElement.classList.add('is-countdown-mode');
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#experience">Pular para a experiência</a>
+
+  <div class="noise" aria-hidden="true"></div>
+  <div class="ambient-glow glow-a" aria-hidden="true"></div>
+  <div class="ambient-glow glow-b" aria-hidden="true"></div>
+
+  <header class="hud" aria-label="Progresso da experiência">
+    <a class="hud-brand" href="#scene-01" aria-label="Voltar ao início">
+      <span class="hud-mark">d<span>&</span>b</span>
+      <span class="hud-caption">NOSSO<br>PEQUENO<br>UNIVERSO</span>
+    </a>
+
+    <div class="hud-center">
+      <span class="hud-kicker" id="hud-kicker">UMA LEMBRANÇA QUE GANHOU VIDA</span>
+      <span class="hud-date" id="hud-date">07.09.2026</span>
+    </div>
+
+    <button class="sound-button" id="sound-button" type="button" aria-pressed="false" aria-label="Tocar nossa trilha sonora">
+      <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span class="sound-label">trilha</span>
+    </button>
+
+    <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+  </header>
+
+  <section class="countdown-view" id="countdown-view" aria-label="Contagem regressiva para 04 de outubro">
+    <div class="countdown-atmosphere" aria-hidden="true">
+      <div class="countdown-glow-center"></div>
+    </div>
+
+    <div class="scene-inner centered countdown-inner">
+      <div class="countdown-badge reveal">
+        <span class="countdown-pulse-dot" aria-hidden="true"></span>
+        <span>04 DE OUTUBRO DE 2026</span>
+      </div>
+
+      <h1 class="countdown-title reveal">
+        Algumas coisas bonitas<br>
+        <em>precisam de tempo para chegar.</em>
+      </h1>
+
+      <p class="countdown-subtext reveal">
+        O tempo está correndo. Esta experiência se revelará assim que virar o dia de celebrar você.
+      </p>
+
+      <div class="countdown-grid reveal" id="countdown-grid" role="timer" aria-live="off">
+        <div class="countdown-cell">
+          <div class="countdown-box">
+            <span class="countdown-num" id="cd-days">00</span>
+            <span class="countdown-unit">dias</span>
+          </div>
+        </div>
+
+        <span class="countdown-sep" aria-hidden="true">:</span>
+
+        <div class="countdown-cell">
+          <div class="countdown-box">
+            <span class="countdown-num" id="cd-hours">00</span>
+            <span class="countdown-unit">horas</span>
+          </div>
+        </div>
+
+        <span class="countdown-sep" aria-hidden="true">:</span>
+
+        <div class="countdown-cell">
+          <div class="countdown-box">
+            <span class="countdown-num" id="cd-minutes">00</span>
+            <span class="countdown-unit">minutos</span>
+          </div>
+        </div>
+
+        <span class="countdown-sep" aria-hidden="true">:</span>
+
+        <div class="countdown-cell">
+          <div class="countdown-box">
+            <span class="countdown-num" id="cd-seconds">00</span>
+            <span class="countdown-unit">segundos</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="countdown-rose-wrap reveal" aria-hidden="true">
+        <svg class="draw-svg countdown-rose" viewBox="0 0 120 160" fill="none" stroke="currentColor">
+          <path class="draw-path" stroke-width="1.2" d="M60 70c-2 26 9 52-1 74M60 102c-17-1-26-11-28-22 16 0 26 8 28 22Zm3-20c15-3 21-12 22-21-15 2-21 10-22 21Z" opacity=".65"/>
+          <path class="draw-path" stroke-width="1.2" d="M60 71C42 65 34 46 42 32c5-8 14-11 21-7 7-9 20-8 25 1 14 3 19 17 9 28-7 13-20 19-37 17Z" opacity=".8"/>
+        </svg>
+      </div>
+
+      <p class="countdown-quote reveal">
+        “Porque algumas coisas bonitas precisam de espaço antes de acontecer.”
+      </p>
+
+      <p class="countdown-hint reveal">
+        Toque em <em>trilha</em> acima para acompanhar com a nossa música.
+      </p>
+
+      <div class="countdown-unlocked-banner" id="countdown-unlocked-banner" hidden>
+        <div class="unlocked-glow" aria-hidden="true"></div>
+        <p class="unlocked-eyebrow">04 DE OUTUBRO DE 2026</p>
+        <h2 class="unlocked-title">Chegou o momento.<br><em>Feliz aniversário, Bethânia.</em></h2>
+        <p class="unlocked-copy">O dia virou e o nosso pequeno universo já está pronto para você.</p>
+        <button class="unlocked-btn" id="enter-experience-btn" type="button">
+          Entrar na experiência <span>↓</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <main id="experience" class="experience">
+    <section class="scene scene-dark scene-01" id="scene-01" data-date="07.09.2026" aria-label="Depois daquela chuva">
+      <div class="rain-layer" aria-hidden="true"></div>
+      <div class="scene-inner centered">
+        <p class="eyebrow reveal">07 / 09 / 2026 · DOIS MESES</p>
+        <h1 class="hero-line reveal">Depois daquela chuva…</h1>
+        <p class="scene-copy reveal">eu comecei a pensar em uma coisa.</p>
+        <div class="scroll-cue reveal" aria-hidden="true"><span></span><small>continue</small></div>
+      </div>
+    </section>
+
+    <section class="scene scene-dark scene-02" data-date="07.09.2026" aria-label="Pequenos momentos">
+      <div class="scene-inner centered sequence-wrap">
+        <p class="eyebrow">A NOSSA HISTÓRIA</p>
+        <div class="word-sequence" aria-live="polite">
+          <span>A nossa história começou com uma <em>rosa.</em></span>
+          <span>Depois vieram as <em>mensagens.</em></span>
+          <span>Os <em>anéis.</em></span>
+          <span>As <em>alianças.</em></span>
+          <span>As <em>cartas.</em></span>
+          <span>Os dias bons.</span>
+          <span>Os dias difíceis.</span>
+          <span>Os <em>dias comuns.</em></span>
+        </div>
+        <p class="sequence-footer">E então eu percebi que talvez ainda estivesse tentando encontrar um jeito de guardar tudo isso.</p>
+      </div>
+    </section>
+
+    <section class="scene scene-paper scene-03" data-date="12.06.2026" aria-label="Memórias">
+      <div class="scene-inner memory-intro">
+        <div class="copy-column">
+          <p class="eyebrow">MEMÓRIA 01</p>
+          <p class="memory-date">12.06</p>
+          <h2>Uma rosa<br><em>branca.</em></h2>
+          <p>Um gesto simples, antes mesmo de eu saber seu nome. Uma pergunta qualquer. Um sorriso que eu queria provocar sem saber que, naquele momento, estava começando alguma coisa.</p>
+        </div>
+        <figure class="memory-photo photo-rose">
+          <div class="photo-frame flower-frame">
+            <svg viewBox="0 0 240 320" role="img" aria-label="Desenho minimalista de uma rosa branca" class="draw-svg rose-drawing">
+              <path class="stem draw-path" d="M122 125c-4 58 20 110-2 162"/>
+              <path class="leaf draw-path" d="M120 201c-33-3-50-25-53-48 31 0 50 17 53 48Zm4-39c31-7 42-23 43-45-30 5-43 20-43 45Z"/>
+              <path class="bloom draw-path" d="M119 130C77 120 61 83 81 52c11-17 30-22 47-14 16-19 42-16 57 2 30 5 41 36 20 59-14 26-43 37-69 31Z"/>
+              <path class="detail draw-path" d="M118 130C92 89 98 56 123 39m-5 91c35-24 53-51 41-78M91 60c29-8 58 12 66 40M77 83c21-7 44 2 57 23m-9-40c18-10 36-8 51 1"/>
+            </svg>
+          </div>
+          <figcaption>antes de ser uma história, foi só uma rosa.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="scene scene-paper scene-04" data-date="30.06.2026" aria-label="Primeira mensagem">
+      <div class="scene-inner split-scene">
+        <div class="split-visual phone-visual" aria-hidden="true">
+          <div class="phone-shell">
+            <div class="phone-speaker"></div>
+            <div class="message-time">21:47</div>
+            <div class="message-bubble left">Oi…</div>
+            <div class="message-bubble right">Oi :)</div>
+            <div class="message-bubble left wider">Como foi seu dia?</div>
+            <div class="message-bubble right wider">Agora ficou melhor.</div>
+            <div class="typing"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+        <div class="copy-column">
+          <p class="eyebrow">30.06 · MEMÓRIA 02</p>
+          <h2>Uma primeira<br><em>mensagem.</em></h2>
+          <p>Depois, o que era um encontro saiu do acaso e foi parar na tela de um celular. Dois dias viraram cinco. As conversas simplesmente não queriam terminar.</p>
+          <span class="pull-quote">Parecia que a gente estava correndo para compensar o tempo em que ainda não sabia da existência um do outro.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene scene-dark scene-05" data-date="07.07.2026" aria-label="Aconteceu">
+      <div class="scene-inner centered event-scene">
+        <p class="eyebrow">07.07 · O COMEÇO</p>
+        <p class="micro-line">Algumas pessoas chegam.</p>
+        <p class="micro-line">Algumas pessoas ficam.</p>
+        <p class="micro-line large-gap">E algumas pessoas…</p>
+        <p class="event-word">acontecem.</p>
+        <div class="event-answer">VOCÊ ACONTECEU.</div>
+        <div class="light-dot" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="scene scene-paper scene-06" data-date="11.07.2026" aria-label="Um ponto de luz">
+      <div class="scene-inner split-scene reverse-mobile">
+        <div class="copy-column">
+          <p class="eyebrow">11.07 · MEMÓRIA 03</p>
+          <h2>Um ponto<br><em>de luz.</em></h2>
+          <p>O solitário era um detalhe pequeno para quem olha de fora. Para mim, era outra forma de dizer: eu estou prestando atenção em você.</p>
+          <p class="small-copy">A ideia voltou para a mesma origem: simplicidade. Algo que não precisava ser enorme para ter significado.</p>
+        </div>
+        <div class="split-visual ring-visual" aria-hidden="true">
+          <div class="ring-glow"></div>
+          <div class="diamond-wrap">
+            <svg class="solitaire-diamond draw-svg" viewBox="0 0 180 180" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path class="draw-path diamond-outline" stroke-width="1.35" d="M90 16 143 66 90 160 37 66 90 16Z"/>
+              <path class="draw-path diamond-facet" stroke-width="1.05" d="M37 66h106M90 16 72 66l18 94 18-94L90 16Z"/>
+              <path class="draw-path diamond-facet" stroke-width="1.05" d="m37 66 35 0 18 94M143 66h-35l-18 94M53 66l37-32 37 32" opacity=".82"/>
+              <path class="draw-path diamond-spark" stroke-width="1.2" d="M137 31v20m-10-10h20"/>
+            </svg>
+            <span class="diamond-glint"></span>
+          </div>
+          <div class="ring-caption">um pequeno brilho<br>que já dizia muita coisa.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene scene-olive scene-07" data-date="15.07.2026" aria-label="O círculo">
+      <div class="scene-inner centered circle-scene">
+        <div class="circle-symbol" aria-hidden="true">
+          <svg class="rings-drawing draw-svg" viewBox="0 0 220 140" fill="none" stroke="currentColor" stroke-linecap="round">
+            <circle class="draw-path ring-one" cx="78" cy="70" r="43" stroke-width="1.25"/>
+            <circle class="draw-path ring-two" cx="142" cy="70" r="43" stroke-width="1.25"/>
+            <path class="draw-path ring-highlight" d="M44 42c11-9 21-13 32-14M108 105c9 8 18 11 29 12" stroke-width="1" opacity=".55"/>
+          </svg>
+        </div>
+        <p class="eyebrow">15.07 · MEMÓRIA 04</p>
+        <h2>Um círculo.</h2>
+        <p>Sem começo. Sem fim.<br>Um símbolo para um “nós” que começava a existir.</p>
+      </div>
+    </section>
+
+    <section class="scene scene-paper scene-08" data-date="22.07.2026" aria-label="O amor acontecendo">
+      <div class="scene-inner happening-scene">
+        <div class="happening-copy">
+          <p class="eyebrow">22.07 · MEMÓRIA 05</p>
+          <h2>O amor<br><em>acontecendo.</em></h2>
+        </div>
+        <blockquote>“Você não simplesmente chegou:<br><em>você, de fato, é um acontecimento na minha vida.</em>”</blockquote>
+        <p class="attribution">— Bethânia</p>
+        <div class="sunline" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="scene scene-photo scene-09" data-date="07.08.2026" aria-label="Um mês">
+      <div class="photo-backdrop" aria-hidden="true"></div>
+      <div class="scene-inner one-month">
+        <div class="photo-stack" aria-label="Memórias de um mês">
+          <figure class="stack-card card-a"><img src="../assets/momento-2-960.webp" alt="Diogo e Bethânia sorrindo em uma mesa de restaurante" loading="lazy"><figcaption>em qualquer canto vira o nosso lar.</figcaption></figure>
+          <figure class="stack-card card-b"><img src="../assets/momento-4-960.webp" alt="Bethânia sorrindo com um buquê de girassóis" loading="lazy"><figcaption>nem o buquê esconde esse sorriso.</figcaption></figure>
+          <figure class="stack-card card-c"><img src="../assets/momento-5-960.webp" alt="Diogo e Bethânia sorrindo com dois cachorros" loading="lazy"><figcaption>e a vida cabendo nas coisas simples.</figcaption></figure>
+        </div>
+        <div class="copy-column light-copy">
+          <p class="eyebrow">07.08 · UM MÊS</p>
+          <h2>O extraordinário<br>morando no <em>comum.</em></h2>
+          <p>Um almoço. Um prato dividido. Japonês numa noite qualquer. Vídeos aleatórios. Eu falando empolgado sobre qualquer coisa. Você escutando. A gente rindo. E tudo isso virando memória.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene scene-paper scene-10" data-date="07.09.2026" aria-label="Faça sol ou faça chuva">
+      <div class="scene-inner centered rain-memory">
+        <p class="eyebrow">07.09 · DOIS MESES</p>
+        <h2>Faça sol.<br><em>Ou faça chuva.</em></h2>
+        <p>Porque, no fim, o que ficou daquele dia não foi a chuva.<br>Foi a vontade de estar junto mesmo assim.</p>
+        <div class="rain-symbol" aria-hidden="true">
+          <svg class="draw-svg umbrella-drawing" viewBox="0 0 180 160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path class="draw-path" stroke-width="1.7" d="M28 80a62 62 0 0 1 124 0c-10-12-21-12-31 0-10-12-21-12-31 0-10-12-21-12-31 0-10-12-21-12-31 0Z"/>
+            <path class="draw-path" stroke-width="1.7" d="M90 20v-8m0 8C70 36 61 56 59 80m31-60c20 16 29 36 31 60M90 80v48"/>
+            <path class="draw-path umbrella-rain-lines" stroke-width="1.2" opacity=".5" d="m35 18-5 9m116-9 5 9M17 101l-5 9m156-9 5 9M60 119l-5 9m70-9 5 9"/>
+          </svg>
+          <span class="rain-drop drop-1"></span><span class="rain-drop drop-2"></span><span class="rain-drop drop-3"></span><span class="rain-drop drop-4"></span><span class="rain-drop drop-5"></span><span class="rain-drop drop-6"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene scene-dark scene-11" data-date="09.09.2026" aria-label="Mas hoje">
+      <div class="scene-inner centered turn-scene">
+        <p class="eyebrow">E AGORA</p>
+        <p class="turn-line">Mas hoje eu não quero falar apenas sobre a nossa história.</p>
+        <p class="turn-line">Quero falar sobre a pessoa que tornou essa história possível.</p>
+        <p class="turn-line final-turn">Você.</p>
+      </div>
+    </section>
+
+    <section class="scene scene-paper scene-12" data-date="18.09.2026" aria-label="Antes de você existir na minha vida">
+      <div class="scene-inner letter-intro">
+        <div>
+          <p class="eyebrow">O QUE EU PERCEBI</p>
+          <h2>Antes de você existir na minha vida,<br>eu nem sabia que estava esperando<br><em>alguém como você.</em></h2>
+        </div>
+        <p class="letter-intro-copy">E talvez essa seja uma das coisas mais bonitas de tudo.</p>
+      </div>
+    </section>
+
+    <section class="scene scene-paper scene-13" data-date="24.09.2026" aria-label="Duas histórias se encontraram">
+      <div class="scene-inner encounter-scene">
+        <div class="orbit orbit-a" aria-hidden="true"></div>
+        <div class="orbit orbit-b" aria-hidden="true"></div>
+        <div class="encounter-copy">
+          <p>Eu não sabia que você existia.</p>
+          <p>Você não sabia que eu existia.</p>
+          <p class="encounter-pause">Até que um dia, em meio a milhões de possibilidades,</p>
+          <p class="encounter-final">nossas histórias se encontraram.</p>
+        </div>
+        <div class="encounter-dot dot-a" aria-hidden="true"></div>
+        <div class="encounter-dot dot-b" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="scene scene-olive scene-14" data-date="07.09.2026" aria-label="Os dias passam até 04 de outubro">
+      <div class="scene-inner calendar-scene">
+        <div class="calendar-atmosphere" aria-hidden="true"></div>
+        <div class="calendar-label">
+          <p class="eyebrow">OS DIAS CONTINUAM PASSANDO</p>
+          <p class="calendar-whisper">e eu só queria guardar um deles.</p>
+        </div>
+        <div class="calendar-face" aria-hidden="true">
+          <span class="cal-month">A PARTIR DE 07.09.2026</span>
+          <div class="date-machine">
+            <span class="date-prefix">2026</span>
+            <strong id="calendar-date" class="calendar-date-display">07.09</strong>
+            <span id="calendar-day-label" class="calendar-day-label">UM DIA DE CADA VEZ</span>
+          </div>
+          <div class="calendar-ticks" id="calendar-ticks"></div>
+          <div class="calendar-endpoint">04.10 <span>o destino</span></div>
+        </div>
+        <p class="calendar-copy">Os dias continuam correndo.<br><em>Até chegar naquele.</em></p>
+      </div>
+    </section>
+
+    <section class="scene scene-dark scene-15" data-date="03.10.2026" aria-label="A véspera">
+      <div class="scene-inner centered eve-scene">
+        <p class="eyebrow">03.10.2026</p>
+        <p class="eve-copy">Silêncio.</p>
+        <p class="eve-copy small">Porque algumas coisas bonitas precisam de espaço antes de acontecer.</p>
+        <div class="eve-line" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="scene scene-dark scene-birthday" data-date="04.10.2026" id="birthday" aria-label="04 de outubro de 2026">
+      <div class="birthday-radial" aria-hidden="true"></div>
+      <div class="scene-inner centered birthday-climax">
+        <p class="birthday-date reveal">04.10.2026</p>
+        <div class="birthday-number reveal" aria-label="04 de outubro">04.<span>10</span></div>
+        <p class="birthday-eyebrow reveal">O DIA QUE ESTA HISTÓRIA ESTAVA ESPERANDO</p>
+        <h2 class="birthday-title reveal">Feliz aniversário,<br><em>Bethânia.</em></h2>
+        <p class="birthday-soft reveal">Hoje eu não conto os meses que temos.<br>Hoje eu celebro o dia em que você chegou ao mundo.</p>
+        <button class="letter-trigger reveal" type="button" id="open-letter">abrir a carta <span aria-hidden="true">↓</span></button>
+      </div>
+    </section>
+
+    <section class="scene scene-paper scene-letter" id="carta" data-date="04.10.2026" aria-label="Carta de aniversário">
+      <div class="scene-inner letter-scene">
+        <div class="letter-paper">
+          <div class="letter-meta"><span>04 DE OUTUBRO DE 2026</span><span>PARA BETHÂNIA</span></div>
+          <p class="letter-greeting">Meu amor,</p>
+          <p>Hoje eu poderia te desejar muitas coisas. Felicidade. Saúde. Sucesso. Realização. Tudo aquilo que normalmente desejamos para alguém que amamos.</p>
+          <p>Mas, acima de tudo, eu desejo que você nunca esqueça o quanto é especial.</p>
+          <p>Porque antes de ser minha namorada, antes de ser parte da nossa história, antes de ser a pessoa que divide os meus dias comigo, <em>você é você.</em></p>
+          <p>E é justamente essa pessoa que eu amo.</p>
+          <p>Eu gosto do jeito como você encontra felicidade nas coisas pequenas. Do seu sorriso quando alguma coisa te encanta de verdade. Da leveza que existe em você. Da forma como você acolhe, como presta atenção, como consegue fazer um momento simples parecer suficiente.</p>
+          <p>Foi isso que mudou a minha forma de enxergar o tempo. Eu aprendi que nem sempre precisamos de uma grande ocasião para sentir que a vida está bonita. Às vezes é só estar perto. Dividir uma comida. Ouvir você rir. Ficar em silêncio. Fazer uma entrega na chuva. Passar dez minutos juntos e voltar para casa com a sensação de que o dia ganhou algum sentido a mais.</p>
+          <p>E talvez seja por isso que eu gosto tanto da ideia de celebrar você hoje.</p>
+          <p>Eu não estou comemorando apenas mais um ano da sua vida. Estou agradecendo pelo fato de que, em algum momento do mundo, você nasceu e, anos depois, acabou cruzando o meu caminho.</p>
+          <p>Eu não sabia que você existia. Você não sabia que eu existia. E, entre tantas possibilidades, entre tantos dias que poderiam ter sido apenas dias, a gente se encontrou.</p>
+          <p>Eu gosto de pensar que Deus estava cuidando dos detalhes antes mesmo de nós percebermos que eles importavam.</p>
+          <p>Não porque eu saiba exatamente o que o futuro vai trazer. Eu não sei. E acho bonito não saber. O que eu sei é que eu quero continuar conhecendo os seus dias por dentro. Quero acompanhar as suas conquistas, os seus medos, as suas mudanças, as pequenas alegrias e os momentos em que você precisar simplesmente de alguém do lado.</p>
+          <p>Quero continuar escolhendo você nos detalhes. E continuar descobrindo quem você é, porque sei que ainda existe muito de você que eu nem conheço.</p>
+          <p>Que você continue sendo essa pessoa sensível, leve, curiosa e capaz de encontrar alegria onde muita gente já teria passado sem perceber. Que o mundo seja gentil com você. E, nos dias em que ele não for, que você se lembre de que não precisa atravessá-los sozinha.</p>
+          <p>Que Deus continue cuidando de você, protegendo seu caminho, dando paz ao seu coração e abrindo espaço para tudo aquilo que ainda vai fazer você sorrir.</p>
+          <p>E que eu tenha a sorte de continuar caminhando ao seu lado enquanto você escreve os próximos capítulos da sua vida.</p>
+          <p>Hoje, porém, não quero correr para os próximos capítulos.</p>
+          <p>Hoje eu quero ficar um pouco neste.</p>
+          <p>No dia em que você nasceu.</p>
+          <p>No dia que, sem você saber, começou a existir a pessoa que um dia eu encontraria.</p>
+          <p>Feliz aniversário, meu amor.</p>
+          <p>Eu amo você.</p>
+          <p class="signature">Diogo Leonardo</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene scene-final scene-dark" data-date="04.10.2026" aria-label="A assinatura da história">
+      <div class="scene-inner centered final-symbolic">
+        <div class="symbol-stack" aria-hidden="true">
+          <div class="final-rose">
+            <svg viewBox="0 0 160 220" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke-width="1.4" d="M81 93c-3 37 12 77-1 108M80 142c-26-2-39-17-42-34 25 0 39 12 42 34Zm4-30c22-5 32-18 33-32-22 3-31 15-33 32Z"/>
+              <path stroke-width="1.4" d="M80 95C53 86 41 59 53 38c7-12 20-16 30-10 10-13 29-11 37 2 20 4 28 25 14 41-11 19-29 28-54 24Z"/>
+              <path stroke-width="1.1" d="M80 95C61 67 62 45 78 31m2 64c25-19 40-40 31-61M63 43c18-5 40 10 43 26M55 59c12-4 27 0 35 13m-7-22c12-7 23-5 32 0"/>
+            </svg>
+          </div>
+          <div class="final-light"></div>
+          <div class="final-circle"></div>
+        </div>
+        <div class="final-words">
+          <p>Uma rosa.</p>
+          <p>Um ponto de luz.</p>
+          <p>Um círculo.</p>
+          <p>Uma vida inteira de capítulos que ainda não conhecemos.</p>
+        </div>
+        <h2>O nosso universo<br><em>ainda está começando.</em></h2>
+        <p class="final-sign">Feliz aniversário, meu amor.</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="letter-modal" id="letter-modal" hidden>
+    <div class="letter-modal-backdrop" data-close-letter></div>
+    <article class="letter-modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal-close" type="button" id="close-letter" aria-label="Fechar carta">×</button>
+      <p class="eyebrow">04 DE OUTUBRO DE 2026</p>
+      <h2 id="modal-title">Uma carta para você.</h2>
+      <p>Eu passei por tudo isso tentando encontrar uma forma de guardar o que a gente viveu. E no fim entendi que não precisava guardar cada detalhe.</p>
+      <p>Eu só precisava lembrar de quem estava em cada um deles.</p>
+      <button class="modal-continue" type="button" data-close-letter>continuar para a carta ↓</button>
+    </article>
+  </div>
+
+  <audio id="soundtrack" preload="auto" loop autoplay aria-hidden="true">
+    <source src="trilha.mp3" type="audio/mpeg">
+    <source src="../assets/trilha.mp3" type="audio/mpeg">
+  </audio>
+  <div id="youtube-player" class="sound-player-hidden" aria-hidden="true"></div>
+
+  <noscript>
+    <div class="noscript-note">Esta experiência continua funcionando sem JavaScript, mas algumas transições cinematográficas e a trilha sonora ficam indisponíveis.</div>
+  </noscript>
+</body>
+</html>
