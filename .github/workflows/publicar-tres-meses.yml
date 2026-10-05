@@ -1,0 +1,82 @@
+name: Publicar 3 Meses de Namoro (07.10)
+
+on:
+  schedule:
+    # 00:00 Horário de Brasília (UTC-3) do dia 07/10/2026 = 03:00 UTC do dia 07/10/2026.
+    # Por que o workflow anterior não disparou meia-noite em ponto?
+    # O GitHub Actions sofre sobrecarga global em horas cheias (:00), acumulando atrasos de 15 a 45 minutos na fila.
+    # Solução infalível:
+    # 1) Pré-aquecimento às 23:56 BRT (02:56 UTC): o runner inicia na hora (sem fila de :00) e aguarda em sleep até 00:00:00 em ponto.
+    - cron: '56 2 7 10 *'
+    # 2) Fallbacks de segurança nos minutos :02, :07 e :15 BRT (03:02, 03:07, 03:15 UTC) caso a VM atrase:
+    - cron: '2,7,15 3 7 10 *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verificar horário e sincronizar virada
+        id: check_time
+        run: |
+          # 00:00 de 07/10/2026 no Horário de Brasília (UTC-3) -> 1791342000 em Unix timestamp
+          TARGET_TS=1791342000
+          CURRENT_TS=$(date +%s)
+          DIFF=$(( TARGET_TS - CURRENT_TS ))
+          
+          echo "Horário atual UTC: $(date -u)"
+          echo "Horário atual BRT: $(TZ='America/Sao_Paulo' date)"
+          echo "Alvo de publicação: 07/10/2026 00:00:00 BRT (Timestamp $TARGET_TS)"
+          echo "Diferença atual: ${DIFF} segundos"
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Disparo manual via workflow_dispatch autorizado. Publicando imediatamente..."
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          elif [ "$DIFF" -le 0 ]; then
+            echo "Horário de publicação já atingido! Publicando agora..."
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          elif [ "$DIFF" -le 360 ]; then
+            echo "Faltam ${DIFF} segundos para a virada da meia-noite em Brasília (00:00:00 BRT)."
+            echo "Aguardando em tempo real no runner pré-aquecido para publicar pontualmente..."
+            sleep "$DIFF"
+            echo "Meia-noite alcançada em Brasília! Prosseguindo com a publicação..."
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "Ainda faltam ${DIFF} segundos e estamos fora da janela imediata."
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Aplicar arquivos da edição de 3 meses
+        if: steps.check_time.outputs.should_publish == 'true'
+        run: |
+          if [ -d "_tres-meses-07-10" ]; then
+            echo "Aplicando arquivos de _tres-meses-07-10..."
+            cp -f _tres-meses-07-10/index.html ./index.html
+            cp -f _tres-meses-07-10/styles.css ./styles.css
+            cp -f _tres-meses-07-10/script.js ./script.js
+            rm -rf _tres-meses-07-10
+          else
+            echo "Diretório _tres-meses-07-10 não encontrado (já aplicado anteriormente)."
+          fi
+
+      - name: Commit e push para main
+        if: steps.check_time.outputs.should_publish == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html styles.css script.js _tres-meses-07-10 || true
+          if git diff --staged --quiet; then
+            echo "Nenhuma alteração detectada para commit. A edição já está publicada."
+          else
+            git commit -m "Publica edição de 3 meses de namoro (07.10)"
+            git push origin main
+            echo "Edição de 3 meses publicada com sucesso no GitHub Pages!"
+          fi
