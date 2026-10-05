@@ -84,3 +84,16 @@ footer .couple-logo{width:125px}
 .letter-vignette .vignette-quote{font:italic 16px/1.4 var(--serif)!important;color:#4f5f52;margin:0!important;text-align:center}
 .letter-vignette .vignette-quote em{color:#2a3d33;font-style:normal;display:block;margin-top:4px}
 
+/* Birthday Letter Symbol Stack & Index Styles */
+.birthday-letter .letter-index{font-size:clamp(30px,4.5vw,42px);letter-spacing:-1px}
+.birthday-vignette .symbol-stack{position:relative;width:150px;height:185px;margin:0 auto 14px}
+.birthday-vignette .final-rose{position:absolute;left:14px;top:6px;width:88px;color:var(--ink);z-index:2}
+.birthday-vignette .final-rose svg{width:100%!important;height:auto!important;margin:0!important;opacity:1!important}
+.birthday-vignette .final-light{position:absolute;width:9px;height:9px;right:14px;top:44px;border-radius:50%;background:#b39352;box-shadow:0 0 20px 6px rgba(179,147,82,.45);z-index:3}
+.birthday-vignette .final-circle{position:absolute;left:36px;bottom:12px;width:80px;height:80px;border:1.5px solid rgba(38,62,53,.32);border-radius:50%;z-index:1}
+@media(max-width:600px){
+  .birthday-letter>summary{grid-template-columns:auto minmax(0,1fr)!important}
+  .birthday-letter .letter-index{font-size:24px!important;line-height:1.1;margin-top:4px}
+}
+
+
