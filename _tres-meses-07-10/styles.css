@@ -107,4 +107,6 @@ footer .couple-logo{width:125px}
 @media(max-width:600px){
   .birthday-letter>summary{grid-template-columns:auto minmax(0,1fr)!important}
   .birthday-letter .letter-index{font-size:24px!important;line-height:1.1;margin-top:4px}
+  .polaroid:last-child{grid-column:auto;max-width:none}
+  .polaroid:nth-child(odd):last-child{grid-column:1/-1;max-width:75%;justify-self:center}
 }
