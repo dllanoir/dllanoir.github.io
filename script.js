@@ -27,7 +27,7 @@ function revealLetter() {
     requestAnimationFrame(() => target.scrollIntoView({block:'start'}));
   }
 }
-document.querySelectorAll('a[href="#carta-aniversario"], a[href="#dois-meses"], a[href="#um-mes"], a[href="#carta-bethania"]').forEach(link => {
+document.querySelectorAll('a[href="#tres-meses"], a[href="#carta-aniversario"], a[href="#dois-meses"], a[href="#um-mes"], a[href="#carta-bethania"]').forEach(link => {
   link.addEventListener('click', () => {
     document.querySelector(link.getAttribute('href')).open = true;
     if (location.hash === link.getAttribute('href')) revealLetter();
